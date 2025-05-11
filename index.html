@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games 4 Life - Aluguel de Video Games</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .game-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+    .rental-option:hover { transform: scale(1.03); }
+    .sidebar { transition: all 0.3s ease; }
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -100%; top: 0; width: 70%; height: 100vh; background: white; z-index: 50; padding-top: 4rem; }
+      .sidebar.active { left: 0; }
+    }
+    .form-input:focus { outline: none; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); }
+  </style>
+</head>
+<body>
+  <!-- O conteúdo do seu site vem aqui -->
+  <body class="bg-gray-100 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-800 text-white shadow-lg fixed w-full z-10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <a href="#home" class="flex items-center space-x-2">
+                    <i class="fas fa-gamepad text-2xl"></i>
+                    <span class="font-bold text-xl">Games 4 Life</span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-blue-200 transition"><i class="fas fa-home mr-1"></i> Início</a>
+                <a href="#rent" class="hover:text-blue-200 transition"><i class="fas fa-gamepad mr-1"></i> Alugar</a>
+                <a href="#games" class="hover:text-blue-200 transition"><i class="fas fa-list mr-1"></i> Jogos</a>
+                <a href="#accessories" class="hover:text-blue-200 transition"><i class="fas fa-headset mr-1"></i> Acessórios</a>
+                <a href="#admin" class="hover:text-blue-200 transition"><i class="fas fa-user-shield mr-1"></i> Admin</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#login" class="hover:text-blue-200 transition"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div id="sidebar" class="sidebar bg-white shadow-lg md:hidden">
+        <div class="p-4">
+            <div class="flex justify-end">
+                <button id="close-menu" class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <ul class="space-y-4 mt-4">
+                <li><a href="#home" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-home mr-2"></i> Início</a></li>
+                <li><a href="#rent" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-gamepad mr-2"></i> Alugar</a></li>
+                <li><a href="#games" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-list mr-2"></i> Jogos</a></li>
+                <li><a href="#accessories" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-headset mr-2"></i> Acessórios</a></li>
+                <li><a href="#admin" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-user-shield mr-2"></i> Admin</a></li>
+                <li><a href="#login" class="block px-4 py-2 hover:bg-blue-100 rounded"><i class="fas fa-sign-in-alt mr-2"></i> Login</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen">
+        <!-- Home Page -->
+        <div id="home-content" class="container mx-auto px-4 py-8">
+            <!-- Hero Section -->
+            <div class="bg-blue-700 text-white rounded-xl p-8 md:p-12 mb-8">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Alugue o video game dos seus sonhos</h1>
+                    <p class="text-xl mb-6">Experimente os melhores consoles do mercado sem precisar comprar. Escolha entre diversas opções e tenha a melhor experiência gamer.</p>
+                    <a href="#rent" class="inline-block bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Alugar Agora</a>
+                </div>
+            </div>
+
+            <!-- Featured Consoles -->
+            <h2 class="text-3xl font-bold mb-6">Consoles em Destaque</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden game-card transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="PlayStation 5" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">PlayStation 5</h3>
+                        <p class="text-gray-600 mb-4">O console mais poderoso da Sony com tecnologia de ponta e jogos exclusivos incríveis.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 299/mês</span>
+                            <a href="#rent" class="text-blue-600 hover:text-blue-800 font-medium">Alugar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden game-card transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Xbox Series X" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Xbox Series X</h3>
+                        <p class="text-gray-600 mb-4">O console mais poderoso da Microsoft com Game Pass e retrocompatibilidade.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 279/mês</span>
+                            <a href="#rent" class="text-blue-600 hover:text-blue-800 font-medium">Alugar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden game-card transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1612036781124-847f8939b154?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nintendo Switch" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Nintendo Switch</h3>
+                        <p class="text-gray-600 mb-4">O console híbrido da Nintendo que você pode jogar em casa ou na rua.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 199/mês</span>
+                            <a href="#rent" class="text-blue-600 hover:text-blue-800 font-medium">Alugar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Textos explicando como funciona o site -->
+            <h2 class="text-3xl font-bold mb-6">Como Funciona</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-blue-700 text-4xl mb-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">1. Escolha seu console</h3>
+                    <p class="text-gray-600">Selecione entre os melhores consoles do mercado e personalize com jogos e acessórios.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-blue-700 text-4xl mb-4">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">2. Defina o período</h3>
+                    <p class="text-gray-600">Escolha por quanto tempo deseja alugar: semanal, mensal ou anual.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-blue-700 text-4xl mb-4">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">3. Receba e aproveite</h3>
+                    <p class="text-gray-600">Nós entregamos na sua casa e você só precisa se preocupar em se divertir!</p>
+                </div>
+            </div>
+
+            <!-- Oferta Especial -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 mb-8">
+                <div class="max-w-3xl">
+                    <h2 class="text-3xl font-bold mb-4">Quer ficar com o console?</h2>
+                    <p class="text-xl mb-6">Com nosso plano de aluguel com opção de compra, você paga o aluguel mensal + um valor adicional e ao final do período o console é seu!</p>
+                    <a href="#rent" class="inline-block bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina de aluguel ( inicializa invisivel) -->
+        <div id="rent-content" class="container mx-auto px-4 py-8 hidden">
+            <h1 class="text-3xl font-bold mb-8">Aluguel de Video Games</h1>
+            <!-- Cadastro do Cliente -->
+<div class="bg-white rounded-xl shadow-md p-6 mb-8">
+    <h2 class="text-2xl font-bold mb-6">Cadastro do Cliente</h2>
+    <form id="client-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="client-name" class="block font-medium mb-1">Nome Completo</label>
+        <input type="text" id="client-name" required class="w-full border rounded-lg p-2">
+      </div>
+      <div>
+        <label for="client-cpf" class="block font-medium mb-1">CPF</label>
+        <input type="text" id="client-cpf" required class="w-full border rounded-lg p-2">
+      </div>
+      <div>
+        <label for="client-email" class="block font-medium mb-1">Email</label>
+        <input type="email" id="client-email" required class="w-full border rounded-lg p-2">
+      </div>
+      <div>
+        <label for="client-phone" class="block font-medium mb-1">Telefone</label>
+        <input type="tel" id="client-phone" required class="w-full border rounded-lg p-2">
+      </div>
+    </form>
+  </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Pagina Consoles -->
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold mb-6">Escolha seu Console</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="border rounded-lg p-4 hover:border-blue-500 transition cursor-pointer" onclick="selectConsole('ps5')">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="PS5" class="w-16 h-16 object-cover rounded">
+                                <div>
+                                    <h3 class="font-bold">PlayStation 5</h3>
+                                    <p class="text-sm text-gray-600">R$ 299/mês</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4 hover:border-blue-500 transition cursor-pointer" onclick="selectConsole('xbox')">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Xbox" class="w-16 h-16 object-cover rounded">
+                                <div>
+                                    <h3 class="font-bold">Xbox Series X</h3>
+                                    <p class="text-sm text-gray-600">R$ 279/mês</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4 hover:border-blue-500 transition cursor-pointer" onclick="selectConsole('switch')">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://images.unsplash.com/photo-1612036781124-847f8939b154?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Switch" class="w-16 h-16 object-cover rounded">
+                                <div>
+                                    <h3 class="font-bold">Nintendo Switch</h3>
+                                    <p class="text-sm text-gray-600">R$ 199/mês</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div id="selected-console" class="hidden mb-8">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold" id="console-name">PlayStation 5</h3>
+                                    <p class="text-sm text-gray-600" id="console-price">R$ 299/mês</p>
+                                </div>
+                                <button onclick="deselectConsole()" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+                    
+                    <!-- Seleção de jogos -->
+                    <h2 class="text-2xl font-bold mb-4">Jogos (opcional)</h2>
+                    <p class="text-gray-600 mb-4">Adicione jogos ao seu pacote de aluguel</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="games-list">
+                        <!-- Os jogos irão aparecer aqui -->
+                    </div>
+                    
+                    <!-- Seleção de acessorios -->
+                    <h2 class="text-2xl font-bold mb-4">Acessórios (opcional)</h2>
+                    <p class="text-gray-600 mb-4">Melhore sua experiência com acessórios extras</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="accessories-list">
+                        <!-- E os acessórios aqui -->
+                    </div>
+                </div>
+                
+                <!-- Aqui são as opções de aluguel -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold mb-6">Opções de Aluguel</h2>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="border rounded-lg p-4 rental-option transition cursor-pointer hover:bg-blue-50" onclick="selectRentalOption('Semanal')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold">Semanal</h3>
+                                    <p class="text-sm text-gray-600">Aluguel por 7 dias</p>
+                                </div>
+                                <span class="font-bold text-blue-700">R$ 99</span>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4 rental-option transition cursor-pointer hover:bg-blue-50" onclick="selectRentalOption('Mensal')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold">Mensal</h3>
+                                    <p class="text-sm text-gray-600">Aluguel por 30 dias</p>
+                                </div>
+                                <span class="font-bold text-blue-700">R$ 299</span>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4 rental-option transition cursor-pointer hover:bg-blue-50" onclick="selectRentalOption('Anual')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold">Anual</h3>
+                                    <p class="text-sm text-gray-600">Aluguel por 365 dias</p>
+                                </div>
+                                <span class="font-bold text-blue-700">R$ 2.999</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="selected-option" class="hidden mb-8">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold" id="option-name">Mensal</h3>
+                                    <p class="text-sm text-gray-600" id="option-price">R$ 299</p>
+                                </div>
+                                <button onclick="deselectRentalOption()" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Opções de compra -->
+                    <div class="mb-8">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="purchase-option" class="form-checkbox h-5 w-5 text-blue-600">
+                            <span class="text-gray-700">Opção de compra (aluguel + valor adicional)</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mt-2">Ao final do período de aluguel, o console será seu!</p>
+                    </div>
+                    
+                    <!-- Sumário -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h3 class="font-bold mb-2">Resumo do Pedido</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Console:</span>
+                                <span id="summary-console" class="font-medium">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Período:</span>
+                                <span id="summary-period" class="font-medium">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Jogos:</span>
+                                <span id="summary-games" class="font-medium">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Acessórios:</span>
+                                <span id="summary-accessories" class="font-medium">0</span>
+                            </div>
+                            <div class="border-t border-gray-200 my-2"></div>
+                            <div class="flex justify-between font-bold">
+                                <span>Total:</span>
+                                <span id="summary-total" class="text-blue-700">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botão de checkout -->
+                    <button id="checkout-btn" class="w-full bg-blue-700 text-white py-3 rounded-lg font-bold hover:bg-blue-800 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Finalizar Aluguel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loja de games ( inicializa invisivel) -->
+        <div id="games-content" class="container mx-auto px-4 py-8 hidden">
+            <h1 class="text-3xl font-bold mb-8">Jogos Disponíveis</h1>
+            
+            <div class="mb-6">
+                <input type="text" id="game-search" placeholder="Buscar jogos..." class="w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="games-grid">
+                <!-- Os jogos irão aparecer aqui -->
+            </div>
+        </div>
+
+        <!-- Página dos acessórios - vai ser inicializado invisivel -->
+        <div id="accessories-content" class="container mx-auto px-4 py-8 hidden">
+            <h1 class="text-3xl font-bold mb-8">Acessórios Disponíveis</h1>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1659700785595-cf5907e6146f?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Controle Extra" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Controle Extra</h3>
+                        <p class="text-gray-600 mb-4">Controle adicional para jogar com amigos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 29/mês</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=2078&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Óculos VR" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Óculos de Realidade Virtual</h3>
+                        <p class="text-gray-600 mb-4">Experimente jogos em realidade virtual.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 49/mês</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1629429407756-4a7703614972?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Headset" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Headset Gamer</h3>
+                        <p class="text-gray-600 mb-4">Headset com microfone para jogos online.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 39/mês</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src="https://m.media-amazon.com/images/I/619wcJ0sEeL.jpg" alt="Base de Carregamento" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Base de Carregamento</h3>
+                        <p class="text-gray-600 mb-4">Carregue seus controles de forma prática.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-700">R$ 19/mês</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                
+               
+            </div>
+        </div>
+
+        <!-- Pagina de login ( vai inicializar invisivel) -->
+        <div id="login-content" class="container mx-auto px-4 py-8 max-w-md hidden">
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <div class="text-center mb-8">
+                    <i class="fas fa-user-shield text-5xl text-blue-700 mb-4"></i>
+                    <h1 class="text-3xl font-bold">Área do Administrador</h1>
+                    <p class="text-gray-600 mt-2">Faça login para acessar o painel de controle</p>
+                </div>
+                
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-gray-700 font-medium mb-2">Usuário</label>
+                        <input type="text" id="username" class="w-full px-4 py-2 border rounded-lg form-input focus:border-blue-500" placeholder="Digite seu usuário" required>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-gray-700 font-medium mb-2">Senha</label>
+                        <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg form-input focus:border-blue-500" placeholder="Digite sua senha" required>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="form-checkbox h-4 w-4 text-blue-600">
+                        <label for="remember" class="ml-2 text-gray-700">Lembrar de mim</label>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded-lg font-bold hover:bg-blue-800 transition">
+                        Entrar
+                    </button>
+                </form>
+                
+                <div id="login-error" class="hidden mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="error-message">Usuário ou senha incorretos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina de Admin ( vai iniciar invisivel) -->
+        <div id="admin-content" class="hidden container mx-auto p-8">
+            <div class="flex justify-between items-center mb-6">
+              <h1 class="text-3xl font-bold">Painel de Administração</h1>
+              <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+              </button>
+            </div>
+          
+            <!-- Cadastro de Jogos -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Cadastrar Novo Jogo</h2>
+              <form id="add-game-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-medium">Nome do Jogo</label>
+                  <input type="text" id="game-name" required class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                  <label class="block font-medium">Preço (R$)</label>
+                  <input type="number" id="game-price" required class="w-full border rounded-lg p-2">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block font-medium">Imagem (URL)</label>
+                  <input type="url" id="game-image" required class="w-full border rounded-lg p-2">
+                </div>
+                <div class="md:col-span-2">
+                  <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+                    Cadastrar Jogo
+                  </button>
+                </div>
+              </form>
+            </div>
+          
+            <!-- Cadastro de Acessórios -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Cadastrar Novo Acessório</h2>
+              <form id="add-accessory-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-medium">Nome do Acessório</label>
+                  <input type="text" id="accessory-name" required class="w-full border rounded-lg p-2">
+                </div>
+                <div>
+                  <label class="block font-medium">Preço (R$)</label>
+                  <input type="number" id="accessory-price" required class="w-full border rounded-lg p-2">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block font-medium">Imagem (URL)</label>
+                  <input type="url" id="accessory-image" required class="w-full border rounded-lg p-2">
+                </div>
+                <div class="md:col-span-2">
+                  <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+                    Cadastrar Acessório
+                  </button>
+                </div>
+              </form>
+            </div>
+          
+            <!-- Clientes Cadastrados -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Clientes Cadastrados</h2>
+              <div id="clients-list" class="space-y-2">
+                <!-- Clientes serão listados aqui -->
+              </div>
+            </div>
+          
+            <!-- Aluguéis Registrados -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Aluguéis Registrados</h2>
+              <div id="rentals-list" class="space-y-2">
+                <!-- Aluguéis serão listados aqui -->
+              </div>
+            </div>
+          </div>
+            
+            <!-- Sessão de Iniciar um novo aluguel -->
+            <div id="add-rental-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-screen overflow-y-auto">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">Adicionar Novo Aluguel</h2>
+                            <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        
+                        <form id="add-rental-form" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="client-name" class="block text-gray-700 font-medium mb-2">Nome do Cliente</label>
+                                    <input type="text" id="client-name" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                </div>
+                                <div>
+                                    <label for="client-email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                    <input type="email" id="client-email" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="client-phone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+                                    <input type="tel" id="client-phone" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                </div>
+                                <div>
+                                    <label for="client-cpf" class="block text-gray-700 font-medium mb-2">CPF</label>
+                                    <input type="text" id="client-cpf" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="rental-console" class="block text-gray-700 font-medium mb-2">Console</label>
+                                <select id="rental-console" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                    <option value="">Selecione um console</option>
+                                    <option value="ps5">PlayStation 5</option>
+                                    <option value="xbox">Xbox Series X</option>
+                                    <option value="switch">Nintendo Switch</option>
+                                    <option value="ps4">PlayStation 4</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="rental-period" class="block text-gray-700 font-medium mb-2">Período</label>
+                                    <select id="rental-period" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                        <option value="">Selecione um período</option>
+                                        <option value="Semanal">Semanal</option>
+                                        <option value="Mensal">Mensal</option>
+                                        <option value="Anual">Anual</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="return-date" class="block text-gray-700 font-medium mb-2">Data de Devolução</label>
+                                    <input type="date" id="return-date" class="w-full px-4 py-2 border rounded-lg form-input" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Jogos (opcional)</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2" id="modal-games-list">
+                                    <!-- Jogos vão se iniciar aqui -->
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Acessórios (opcional)</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2" id="modal-accessories-list">
+                                    <!-- Acessórios vão iniciar aqui -->
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4">
+                                <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded-lg font-bold hover:bg-blue-800 transition">
+                                    Adicionar Aluguel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Games 4 Life</h3>
+                    <p>Alugue os melhores video games e tenha a experiência completa de jogar sem precisar comprar.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-blue-300 transition">Início</a></li>
+                        <li><a href="#rent" class="hover:text-blue-300 transition">Alugar</a></li>
+                        <li><a href="#games" class="hover:text-blue-300 transition">Jogos</a></li>
+                        <li><a href="#accessories" class="hover:text-blue-300 transition">Acessórios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contato</h3>
+                    <p><i class="fas fa-envelope mr-2"></i> contato@Games4Life.com</p>
+                    <p><i class="fas fa-phone mr-2"></i> (11) 98765-4321</p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-white hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/eduardo_bonfiim/" class="text-white hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p>&copy; 2023 Games 4 Life. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+  
+</body>
+</html>
