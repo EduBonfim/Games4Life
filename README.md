@@ -34,7 +34,7 @@ Além disso, pensamos em oferecer um **serviço de entrega**: o cliente faz o ca
 ## 📷 Exemplo Visual
 
 > Página inicial com destaque dos consoles e chamadas para aluguel:  
-> ![Exemplo]([https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80](https://raw.githubusercontent.com/EduBonfim/Games4Life/main/exemplo-site.png))
+> ![Tela inicial do site Games 4 Life](https://raw.githubusercontent.com/EduBonfim/Games4Life/main/exemplo-site.png)
 
 ## 📂 Estrutura de Páginas
 
